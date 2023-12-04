@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import "./Trips.css";
 import { v4 as uuidv4 } from "uuid";
 
@@ -7,11 +7,18 @@ function Trips() {
    const [trips, setTrips] = useState([]);
    const [url, setUrl] = useState("http://localhost:3000/trips");
    //    UseEffects
-   useEffect(() => {
-      fetch(url)
-         .then((e) => e.json())
-         .then((e) => setTrips(e));
+
+   // async await
+   const fetchTrips = useCallback(async () => {
+      const req = await fetch(url);
+      const data = await req.json();
+      setTrips(data);
    }, [url]);
+
+   // useEffect
+   useEffect(() => {
+      fetchTrips();
+   }, [fetchTrips]);
 
    // _______________________________________________
    return (
