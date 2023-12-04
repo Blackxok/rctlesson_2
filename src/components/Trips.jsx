@@ -5,13 +5,13 @@ import { v4 as uuidv4 } from "uuid";
 function Trips() {
    // useStates
    const [trips, setTrips] = useState([]);
-
+   const [url, setUrl] = useState("http://localhost:3000/trips");
    //    UseEffects
    useEffect(() => {
-      fetch("http://localhost:3000/trips")
+      fetch(url)
          .then((e) => e.json())
          .then((e) => setTrips(e));
-   }, []);
+   }, [url]);
 
    // _______________________________________________
    return (
@@ -27,6 +27,22 @@ function Trips() {
                );
             })}
          </ul>
+         <div className="filters">
+            <button
+               onClick={() => {
+                  setUrl("http://localhost:3000/trips?loc=euro");
+               }}
+            >
+               Euro Trips
+            </button>
+            <button
+               onClick={() => {
+                  setUrl("http://localhost:3000/trips?loc=usa");
+               }}
+            >
+               USA Trips
+            </button>
+         </div>
       </div>
    );
 }
