@@ -8,13 +8,14 @@ function Trips() {
 
    const [url, setUrl] = useState("http://localhost:3000/trips");
    //    usefetch
-   const { data: trips, bekla } = useFetch(url);
+   const { data: trips, bekla, err } = useFetch(url);
 
    // _______________________________________________
    return (
       <div className="trip-list">
          <h1>TripList budas!!</h1>
-         {bekla && <p>Loading...</p>}
+         {bekla && <h2>Loading...</h2>}
+         {err && <h2>{err}</h2>}
          <ul>
             {trips &&
                trips.map((e) => {
